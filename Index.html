@@ -22,10 +22,53 @@
 
   <body>
     <div id="app">
-      <div></div>
+      <div id="head" class="">
+        <nav
+          role="navigation"
+          class="navbar py-5 is-dark"
+          aria-label="main navigation"
+        >
+          <div class="container">
+            <div class="navbar-brand"></div>
+
+            <div class="navbar-menu">
+              <div class="navbar-start">
+                <a id="table" class="navbar-button navbar-item is-size-5"
+                  >Table</a
+                >
+                <a id="chart" class="navbar-button navbar-item is-size-5"
+                  >Chart</a
+                >
+                <a id="heat" class="navbar-button navbar-item is-size-5"
+                  >Heat Index</a
+                >
+              </div>
+
+              <div class="navbar-end">
+                <a id="contact" class="button is-primary"
+                  ><strong>Contact us</strong></a
+                >
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div id="body">
+        <div id="page-table" class="page">
+          <h2>Table</h2>
+        </div>
+        <div id="page-chart" class="page is-hidden">
+          <h2>Chart</h2>
+        </div>
+        <div id="page-heat" class="page is-hidden">
+          <h2>Heat</h2>
+        </div>
+      </div>
     </div>
-    <script src="variables/const.js"></script>
     <script src="variables/local.js"></script>
+    <script src="variables/const.js"></script>
     <script src="app.js"></script>
+    <script src="listeners/listeners.js"></script>
   </body>
 </html>
