@@ -1,7 +1,5 @@
 "use strict";
 
-function hey(asdf) {
-  return asdf;
-}
-
-hey("Hello World!");
+axios.get(url).then((response) => {
+  console.log(response);
+});
