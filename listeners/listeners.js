@@ -5,7 +5,9 @@ const openPage = function () {
       pages[i].id.length
     );
 
-    if (pagesID === this.id) {
+    let buttonID = this.id.slice(this.id.indexOf("-") + 1, this.id.length);
+
+    if (pagesID === buttonID) {
       pages[i].classList.remove("is-hidden");
     } else {
       pages[i].classList.add("is-hidden");

@@ -33,13 +33,13 @@
 
             <div class="navbar-menu">
               <div class="navbar-start">
-                <a id="table" class="navbar-button navbar-item is-size-5"
+                <a id="button-table" class="navbar-button navbar-item is-size-5"
                   >Table</a
                 >
-                <a id="chart" class="navbar-button navbar-item is-size-5"
+                <a id="button-chart" class="navbar-button navbar-item is-size-5"
                   >Chart</a
                 >
-                <a id="heat" class="navbar-button navbar-item is-size-5"
+                <a id="button-heat" class="navbar-button navbar-item is-size-5"
                   >Heat Index</a
                 >
               </div>
@@ -56,7 +56,10 @@
 
       <div id="body">
         <div id="page-table" class="page">
-          <h2>Table</h2>
+          <div class="table">
+            <thead></thead>
+            <tbody id="table"></tbody>
+          </div>
         </div>
         <div id="page-chart" class="page is-hidden">
           <h2>Chart</h2>
