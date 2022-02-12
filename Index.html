@@ -55,11 +55,25 @@
       </div>
 
       <div id="body">
-        <div id="page-table" class="page">
-          <div class="table">
-            <thead></thead>
-            <tbody id="table"></tbody>
-          </div>
+        <div id="page-table" class="page container py-5">
+          <div id="table-info"></div>
+          <table
+            class="table is-striped is-hoverable"
+            style="margin-left: auto; margin-right: auto"
+          >
+            <thead id="table-head" class="has-text-centered">
+              <th>Day</th>
+              <th></th>
+              <th>Max</th>
+              <th>Min</th>
+              <th>Wind</th>
+              <th>Humidity</th>
+              <th>Visibility</th>
+              <th>Pressure</th>
+              <th>Predictability</th>
+            </thead>
+            <tbody id="table" class="has-text-centered"></tbody>
+          </table>
         </div>
         <div id="page-chart" class="page is-hidden">
           <h2>Chart</h2>
