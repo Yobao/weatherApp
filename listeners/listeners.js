@@ -36,3 +36,21 @@ search.addEventListener("click", () => {
 });
 
 //Listener for heat index calculator...
+buttonsMetric.forEach((button) => {
+  button.addEventListener("click", function () {
+    buttonsMetric.forEach((butt) => {
+      butt.classList.remove("is-success");
+    });
+    if (!this.classList.contains("is-success"))
+      this.classList.add("is-success");
+  });
+});
+
+buttonCalculate.addEventListener("click", function () {
+  let metric;
+  buttonsMetric.forEach((button) => {
+    if (button.classList.contains("is-success")) metric = button.innerText;
+  });
+
+  heatCalculation(inputTemperature.value, inputHumidity.value, metric);
+});

@@ -104,11 +104,9 @@
           </table>
         </div>
 
-        <div id="page-chart" class="page is-hidden">
-          <h2>Chart</h2>
-        </div>
+        <div id="page-chart" class="page"></div>
 
-        <div id="page-heat" class="page">
+        <div id="page-heat" class="page is-hidden">
           <div class="container">
             <p class="title has-text-centered py-4">Heat Index calculator</p>
             <div class="tabs is-centered">
@@ -127,9 +125,47 @@
           </div>
 
           <div id="page-calculation" class="page container">
-            <div class="columns is-centered pt-6">
-              <p class="subtitle is-45">Insert temperature</p>
-              <input />
+            <div id="heat-index" class="container has-text-centered mt-6"></div>
+            <div class="buttons has-addons is-centered pt-6">
+              <p class="subtitle is-5 mt-2 mr-4">Metric</p>
+              <button id="celsius" class="button-metric button is-success">
+                °C
+              </button>
+              <button id="fahrenheit" class="button-metric button">°F</button>
+            </div>
+
+            <div class="is-centered pt-4">
+              <div class="columns is-centered">
+                <div class="column is-2">
+                  <p class="subtitle is-5">Temperature</p>
+                </div>
+                <div class="column is-3">
+                  <input
+                    id="input-temperature"
+                    class="input is-info is-normal"
+                    type="text"
+                    placeholder="minimum 26.7°C OR 80°F"
+                  />
+                </div>
+              </div>
+              <div class="columns is-centered">
+                <div class="column is-2">
+                  <p class="subtitle is-5">Humidity (in %)</p>
+                </div>
+                <div class="column is-3">
+                  <input
+                    id="input-humidity"
+                    class="input is-info is-normal"
+                    type="text"
+                    placeholder="e.g. 80"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="container has-text-centered my-6">
+              <button id="button-calculate" class="button is-warning is-medium">
+                Calculate
+              </button>
             </div>
           </div>
 
