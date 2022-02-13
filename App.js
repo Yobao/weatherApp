@@ -38,6 +38,12 @@ function getForecast(cityID) {
     let str = document.createElement("strong");
     let p = document.createElement("p");
 
+    //Variable arrays for graph.
+    let xAxis = [];
+    let yAxis = [];
+    let yAxis2 = [];
+    let yAxis3 = [];
+
     str.appendChild(city);
     str.setAttribute("class", "is-size-4");
     p.appendChild(timeUpdate);
@@ -60,10 +66,16 @@ function getForecast(cityID) {
         forecast.predictability + "%",
       ];
 
+      xAxis.push(row[0]);
+      yAxis.push(Math.round(forecast.the_temp));
+      yAxis2.push(Math.round(forecast.max_temp));
+      yAxis3.push(Math.round(forecast.min_temp));
+
       //For each column insert values into row, then insert whole row.
       row.forEach((column, i) => {
         let td = document.createElement("td");
         let val = document.createTextNode(column);
+
         //If statement for isnerting pictures into table.
         if (i === 1) {
           let img = document.createElement("IMG");
@@ -80,10 +92,48 @@ function getForecast(cityID) {
 
       table.appendChild(tr);
     });
+
+    renderChart(xAxis, yAxis, yAxis2, yAxis3);
   });
 }
 //Function call...???
 getForecast();
+
+//FUNCTION FOR CREATING CHART WITH TEMP, MIN & MAX VALUES.
+function renderChart(xAxis, temp, max, min) {
+  let trace1 = {
+    x: [...xAxis],
+    y: [...temp],
+    type: "scatter",
+    name: "Temperature",
+  };
+  let trace2 = {
+    x: [...xAxis],
+    y: [...max],
+    type: "scatter",
+    name: "Max",
+  };
+  let trace3 = {
+    x: [...xAxis],
+    y: [...min],
+    type: "scatter",
+    name: "Min",
+  };
+  let data = [trace1, trace2, trace3];
+
+  let layout = {
+    title: "Weather Forecast Chart",
+    xaxis: {
+      title: "Day of week",
+    },
+    yaxis: {
+      title: "Temperature",
+    },
+  };
+
+  pageChart.setAttribute("class", "my-6");
+  Plotly.newPlot(pageChart, data, layout);
+}
 
 //Loop for inserting countries and cities into dropdown.
 function dataLoop(data, dropdown) {
