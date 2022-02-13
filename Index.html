@@ -57,6 +57,34 @@
       <div id="body">
         <div id="page-table" class="page container py-5">
           <div id="table-info"></div>
+          <p class="title has-text-centered pb-3">Weather forecast</p>
+
+          <div class="columns is-centered">
+            <p class="subtitle is-5 px-2 py-1">Country</p>
+
+            <div class="control has-icons-left pr-6">
+              <div class="select">
+                <select id="select-country"></select>
+              </div>
+              <div class="icon is-small is-left">
+                <i class="fas fa-globe"></i>
+              </div>
+            </div>
+
+            <p class="subtitle is-5 px-2 py-2">City</p>
+            <div class="control pr-6">
+              <div class="select">
+                <select id="select-city"></select>
+              </div>
+            </div>
+
+            <div class="pl-6">
+              <button id="search" class="button is-normal is-info ml-6">
+                Search
+              </button>
+            </div>
+          </div>
+
           <table
             class="table is-striped is-hoverable"
             style="margin-left: auto; margin-right: auto"

@@ -19,3 +19,16 @@ const openPage = function () {
 navbarButtons.forEach((button) => {
   button.addEventListener("click", openPage);
 });
+
+function test(asdf) {
+  console.log(asdf);
+}
+
+//Listener for dropdowns.
+selectCountry.addEventListener("change", () => {
+  getCities(selectCountry.value);
+});
+
+search.addEventListener("click", () => {
+  getForecast(selectCity.value);
+});
