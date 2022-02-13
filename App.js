@@ -11,6 +11,7 @@ const weekdayArr = [
   "Saturday",
 ];
 
+//Func. declaration for deleteting all the children in specified element to re-render.
 function deleter(element) {
   while (element.lastElementChild)
     element.removeChild(element.lastElementChild);
@@ -20,10 +21,10 @@ function deleter(element) {
 function getForecast(cityID) {
   !cityID ? (cityID = "44418") : cityID;
 
-  deleter(table);
-  deleter(tableInfo);
-
   axios.get(url + cityID).then((response) => {
+    deleter(table);
+    deleter(tableInfo);
+
     let data = response.data;
     let dataWeather = data.consolidated_weather;
     let city = document.createTextNode(data.title);
@@ -63,7 +64,7 @@ function getForecast(cityID) {
       row.forEach((column, i) => {
         let td = document.createElement("td");
         let val = document.createTextNode(column);
-        //If statement for isnertin pictures into table.
+        //If statement for isnerting pictures into table.
         if (i === 1) {
           let img = document.createElement("IMG");
           img.setAttribute("src", `img/${column}.png`);
@@ -87,35 +88,29 @@ getForecast();
 //23424750   24865675
 //IIFE Axios request for list of European citties.
 (async function getCountry() {
-  let countries = await axios.get(url + 24865675);
-  let data = countries.data.children;
-
-  //Loop for inserting countries into dropdown...
-  data.forEach((country) => {
-    let option = document.createElement("option");
-    let value = document.createTextNode(country.title);
-
-    option.appendChild(value);
-    option.setAttribute("value", country.woeid);
-    selectCountry.appendChild(option);
-  });
-
+  let response = await axios.get(url + 24865675);
+  deleter(selectCountry);
+  let countries = response.data.children;
+  dataLoop(countries, selectCountry);
   let cities = await getCities(selectCountry.value);
 })();
 
 //Function for filtering countries in slicer.
-function getCities(id) {
+async function getCities(id) {
+  let response = await axios.get(url + id);
   deleter(selectCity);
+  let cities = response.data.children;
+  dataLoop(cities, selectCity);
+}
 
-  axios.get(url + id).then((response) => {
-    let cities = response.data.children;
-    cities.forEach((city) => {
-      let option = document.createElement("option");
-      let value = document.createTextNode(city.title);
+//Loop for inserting countries and cities into dropdown...
+function dataLoop(data, dropdown) {
+  data.forEach((row) => {
+    let option = document.createElement("option");
+    let value = document.createTextNode(row.title);
 
-      option.appendChild(value);
-      option.setAttribute("value", city.woeid);
-      selectCity.appendChild(option);
-    });
+    option.appendChild(value);
+    option.setAttribute("value", row.woeid);
+    dropdown.appendChild(option);
   });
 }

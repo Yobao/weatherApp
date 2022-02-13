@@ -55,7 +55,7 @@
       </div>
 
       <div id="body">
-        <div id="page-table" class="page container py-5">
+        <div id="page-table" class="page container py-5 is-hidden">
           <div id="table-info"></div>
           <p class="title has-text-centered pb-3">Weather forecast</p>
 
@@ -80,7 +80,7 @@
 
             <div class="pl-6">
               <button id="search" class="button is-normal is-info ml-6">
-                Search
+                Show forecast
               </button>
             </div>
           </div>
@@ -103,12 +103,39 @@
             <tbody id="table" class="has-text-centered"></tbody>
           </table>
         </div>
+
         <div id="page-chart" class="page is-hidden">
           <h2>Chart</h2>
         </div>
-        <div id="page-heat" class="page is-hidden">
-          <h2>Heat</h2>
+
+        <div id="page-heat" class="page">
+          <div class="container">
+            <p class="title has-text-centered py-4">Heat Index calculator</p>
+            <div class="tabs is-centered">
+              <ul>
+                <li
+                  id="button-calculation"
+                  class="navbar-button is-active is-size-5"
+                >
+                  <a>Calculation</a>
+                </li>
+                <li id="button-history" class="navbar-button is-size-5">
+                  <a>History</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="page-calculation" class="page container">
+            <div class="columns is-centered pt-6">
+              <p class="subtitle is-45">Insert temperature</p>
+              <input />
+            </div>
+          </div>
+
+          <div id="page-history" class="page container is-hidden"></div>
         </div>
+        <!-- ---------- -->
       </div>
     </div>
     <script src="variables/local.js"></script>

@@ -13,3 +13,6 @@ const selectCountry = document.getElementById("select-country");
 const selectCity = document.getElementById("select-city");
 
 const search = document.getElementById("search");
+
+const calcu = document.getElementById("page-calculation");
+const history = document.getElementById("page-history");

@@ -12,6 +12,13 @@ const openPage = function () {
     } else {
       pages[i].classList.add("is-hidden");
     }
+
+    if (buttonID === "heat") calcu.classList.remove("is-hidden");
+    if (
+      (buttonID === "history" || buttonID === "calculation") &&
+      pagesID === "heat"
+    )
+      pages[i].classList.remove("is-hidden");
   }
 };
 
@@ -20,15 +27,12 @@ navbarButtons.forEach((button) => {
   button.addEventListener("click", openPage);
 });
 
-function test(asdf) {
-  console.log(asdf);
-}
-
 //Listener for dropdowns.
 selectCountry.addEventListener("change", () => {
   getCities(selectCountry.value);
 });
-
 search.addEventListener("click", () => {
   getForecast(selectCity.value);
 });
+
+//Listener for heat index calculator...
