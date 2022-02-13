@@ -131,6 +131,7 @@ function renderChart(xAxis, temp, max, min) {
     },
   };
 
+  pageChart.setAttribute("class", "my-6");
   Plotly.newPlot(pageChart, data, layout);
 }
 
