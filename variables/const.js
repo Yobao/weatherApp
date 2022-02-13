@@ -16,9 +16,13 @@ const search = document.getElementById("search");
 
 const calcu = document.getElementById("page-calculation");
 const history = document.getElementById("page-history");
+const heatHistory = document.getElementById("heat-history");
 
 const buttonsMetric = document.querySelectorAll(".button-metric");
 const heatIndex = document.getElementById("heat-index");
 const inputTemperature = document.getElementById("input-temperature");
 const inputHumidity = document.getElementById("input-humidity");
 const buttonCalculate = document.getElementById("button-calculate");
+
+const buttonCalculation = document.getElementById("button-calculation");
+const buttonHistory = document.getElementById("button-history");

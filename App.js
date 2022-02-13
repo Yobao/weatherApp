@@ -12,7 +12,7 @@ const weekdayArr = [
 ];
 
 //Func. declaration for deleteting all the children in specified element to re-render.
-function deleter(element) {
+function elementChildDeleter(element) {
   while (element.lastElementChild)
     element.removeChild(element.lastElementChild);
 }
@@ -22,15 +22,12 @@ function getForecast(cityID) {
   !cityID ? (cityID = "44418") : cityID;
 
   axios.get(url + cityID).then((response) => {
-    deleter(table);
-    deleter(tableInfo);
+    elementChildDeleter(table);
+    elementChildDeleter(tableInfo);
 
     let data = response.data;
     let dataWeather = data.consolidated_weather;
     let city = document.createTextNode(data.title);
-    let date = document.createTextNode(
-      "Date: " + data.time.slice(0, data.time.indexOf("T"))
-    );
     let time = data.time.slice(data.time.indexOf("T") + 1, data.time.length);
     let timeUpdate = document.createTextNode(
       "Current Time: " + time.slice(0, time.indexOf("."))
@@ -40,9 +37,9 @@ function getForecast(cityID) {
 
     //Variable arrays for graph.
     let xAxis = [];
-    let yAxis = [];
-    let yAxis2 = [];
-    let yAxis3 = [];
+    let yAxisTemp = [];
+    let yAxisMax = [];
+    let yAxisMin = [];
 
     str.appendChild(city);
     str.setAttribute("class", "is-size-4");
@@ -67,9 +64,9 @@ function getForecast(cityID) {
       ];
 
       xAxis.push(row[0]);
-      yAxis.push(Math.round(forecast.the_temp));
-      yAxis2.push(Math.round(forecast.max_temp));
-      yAxis3.push(Math.round(forecast.min_temp));
+      yAxisTemp.push(Math.round(forecast.the_temp));
+      yAxisMax.push(Math.round(forecast.max_temp));
+      yAxisMin.push(Math.round(forecast.min_temp));
 
       //For each column insert values into row, then insert whole row.
       row.forEach((column, i) => {
@@ -93,7 +90,7 @@ function getForecast(cityID) {
       table.appendChild(tr);
     });
 
-    renderChart(xAxis, yAxis, yAxis2, yAxis3);
+    renderChart(xAxis, yAxisTemp, yAxisMax, yAxisMin);
   });
 }
 //Function call...???
@@ -101,6 +98,7 @@ getForecast();
 
 //FUNCTION FOR CREATING CHART WITH TEMP, MIN & MAX VALUES.
 function renderChart(xAxis, temp, max, min) {
+  elementChildDeleter(pageChart);
   let trace1 = {
     x: [...xAxis],
     y: [...temp],
@@ -122,6 +120,8 @@ function renderChart(xAxis, temp, max, min) {
   let data = [trace1, trace2, trace3];
 
   let layout = {
+    autosize: true,
+    automargin: true,
     title: "Weather Forecast Chart",
     xaxis: {
       title: "Day of week",
@@ -131,7 +131,6 @@ function renderChart(xAxis, temp, max, min) {
     },
   };
 
-  pageChart.setAttribute("class", "my-6");
   Plotly.newPlot(pageChart, data, layout);
 }
 
@@ -151,7 +150,7 @@ function dataLoop(data, dropdown) {
 //IIFE Axios request for list of European citties.
 (async function getCountry() {
   let response = await axios.get(url + 24865675);
-  deleter(selectCountry);
+  elementChildDeleter(selectCountry);
   let countries = response.data.children;
   dataLoop(countries, selectCountry);
   let cities = await getCities(selectCountry.value);
@@ -160,7 +159,7 @@ function dataLoop(data, dropdown) {
 //Function for filtering countries in slicer.
 async function getCities(id) {
   let response = await axios.get(url + id);
-  deleter(selectCity);
+  elementChildDeleter(selectCity);
   let cities = response.data.children;
   dataLoop(cities, selectCity);
 }
@@ -191,8 +190,13 @@ function heatCalculation(temperature, humidity, metric) {
         100
     ) / 100;
 
+  //Conversion back to Celsius.
+  metric === "°C"
+    ? (heatIndexValue = Math.floor((5 / 9) * (heatIndexValue - 32) * 100) / 100)
+    : (heatIndexValue = Math.floor(heatIndexValue * 100) / 100);
+
   //Variables for inserting element into DOM.
-  deleter(heatIndex);
+  elementChildDeleter(heatIndex);
   let p = document.createElement("div");
   let text = document.createTextNode(
     `Heat Index for given inputs is ${heatIndexValue}`
@@ -203,10 +207,57 @@ function heatCalculation(temperature, humidity, metric) {
   p.setAttribute("class", "title is-4");
   heatIndex.appendChild(p);
 
+  let storageLength = localStorage.Index
+    ? localStorage.Index.match(/,/g).length
+    : 0;
+  let storageArray;
+
   //Saves history into local storage...
-  /*   if (localStorage.length < 5) {
-    let counter = 5 - localStorage.length;
-    localStorage.setItem(`Index ${counter}`, heatIndexValue);
-  } else if (localStorage === 5) {
-  } */
+  if (storageLength < 5) {
+    localStorage.setItem(
+      "Index",
+      !localStorage.Index
+        ? heatIndexValue + ","
+        : localStorage.Index + heatIndexValue + ","
+    );
+  } else {
+    storageArray = [...localStorage.Index.split(",", storageLength)];
+    storageArray = storageArray.filter((posting, i) => i !== 0);
+    storageArray.push(heatIndexValue);
+    localStorage.setItem("Index", storageArray.join(",") + ",");
+  }
+
+  renderHeatHistory();
 }
+
+//localStorage.clear();
+function renderHeatHistory() {
+  if (!localStorage.Index) {
+    elementChildDeleter(heatHistory);
+  } else {
+    let storageLength = localStorage.Index
+      ? localStorage.Index.match(/,/g).length
+      : 0;
+    let storageArray = [...localStorage.Index.split(",", storageLength)];
+
+    elementChildDeleter(heatHistory);
+
+    storageArray.forEach((value, i) => {
+      let tr = document.createElement("tr");
+      let valueText = document.createTextNode(value);
+      let position = document.createTextNode(i + 1);
+      let tableColumns = [position, valueText];
+
+      tableColumns.forEach((column) => {
+        let td = document.createElement("td");
+        let text = column;
+
+        td.appendChild(text);
+        tr.appendChild(td);
+      });
+
+      heatHistory.appendChild(tr);
+    });
+  }
+}
+renderHeatHistory();

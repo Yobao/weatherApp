@@ -105,7 +105,7 @@
           </table>
         </div>
 
-        <div id="page-chart" class="page"></div>
+        <div id="page-chart" class="page is-centered my-6"></div>
 
         <div id="page-heat" class="page is-hidden">
           <div class="container">
@@ -170,7 +170,18 @@
             </div>
           </div>
 
-          <div id="page-history" class="page container is-hidden"></div>
+          <div id="page-history" class="page container is-hidden">
+            <table
+              class="table is-striped is-hoverable my-6"
+              style="margin-left: auto; margin-right: auto"
+            >
+              <thead class="has-text-centered">
+                <th>Number</th>
+                <th>Value</th>
+              </thead>
+              <tbody id="heat-history" class="has-text-centered"></tbody>
+            </table>
+          </div>
         </div>
         <!-- ---------- -->
       </div>

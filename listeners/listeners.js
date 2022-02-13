@@ -19,6 +19,14 @@ const openPage = function () {
       pagesID === "heat"
     )
       pages[i].classList.remove("is-hidden");
+
+    if (buttonID === "calculation") {
+      this.classList.add("is-active");
+      buttonHistory.classList.remove("is-active");
+    } else if (buttonID === "history") {
+      this.classList.add("is-active");
+      buttonCalculation.classList.remove("is-active");
+    }
   }
 };
 
