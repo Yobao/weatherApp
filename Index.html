@@ -30,20 +30,20 @@
           aria-label="main navigation"
         >
           <div class="container">
-            <div class="navbar-brand"></div>
+            <div class="navbar-brand">
+              <a id="button-table" class="navbar-button navbar-item is-size-5"
+                >Table</a
+              >
+              <a id="button-chart" class="navbar-button navbar-item is-size-5"
+                >Chart</a
+              >
+              <a id="button-heat" class="navbar-button navbar-item is-size-5"
+                >Heat Index</a
+              >
+            </div>
 
             <div class="navbar-menu">
-              <div class="navbar-start">
-                <a id="button-table" class="navbar-button navbar-item is-size-5"
-                  >Table</a
-                >
-                <a id="button-chart" class="navbar-button navbar-item is-size-5"
-                  >Chart</a
-                >
-                <a id="button-heat" class="navbar-button navbar-item is-size-5"
-                  >Heat Index</a
-                >
-              </div>
+              <div class="navbar-start"></div>
 
               <div class="navbar-end">
                 <a id="contact" class="button is-primary"
@@ -56,7 +56,7 @@
       </div>
 
       <div id="body">
-        <div id="page-table" class="page container py-5 is-hidden">
+        <div id="page-table" class="page container py-5">
           <div id="table-info"></div>
           <p class="title has-text-centered pb-3">Weather forecast</p>
 
@@ -105,7 +105,7 @@
           </table>
         </div>
 
-        <div id="page-chart" class="page"></div>
+        <div id="page-chart" class="page is-hidden"></div>
 
         <div id="page-heat" class="page is-hidden">
           <div class="container">
